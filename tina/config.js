@@ -8,12 +8,12 @@ const branch =
   "main";
 
 export default defineConfig({
-  branch,
+  branch: "main",
 
   // Get this from tina.io
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
+  clientId: "cab34a91-4df1-4f84-89ae-71dcce7af0c6",
   // Get this from tina.io
-  token: process.env.TINA_TOKEN,
+  token: "793aed08c93832615306cf07260fd12b855b12b4",
 
   build: {
     outputFolder: "admin",
@@ -29,13 +29,68 @@ export default defineConfig({
   schema: {
     search: {
       tina: {
-        indexerToken: "<Your Search Token>",
+        indexerToken: "95d20762443e60dba61d256e2353a1b8845bfb10",
         stopwordLanguages: ["eng"],
       },
       indexBatchSize: 100,
       maxSearchIndexFieldLength: 100,
     },
+
     collections: [
+      {
+        label: "Page Blocks",
+        name: "pageBlocks",
+        path: "content/pages",
+        format: "md",
+        fields: [
+          {
+            name: "pagename",
+            label: "Page Name",
+            type: "string",
+            isTitle: true,
+            required: true,
+          },
+          {
+            name: "blocks",
+            label: "Blocks",
+            type: "object",
+            list: true,
+            templates: [
+              {
+                label: "Welcome Hero",
+                name: "welcomehero",
+                fields: [
+                  {
+                    name: "messages",
+                    type: "rich-text",
+                  },
+                  {
+                    name: "links",
+                    label: "Links",
+                    type: "object",
+                    list: true,
+                    fields: [
+                      {
+                        type: "string",
+                        name: "link",
+                      },
+                      {
+                        type: "string",
+                        name: "label",
+                      },
+                      {
+                        type: "string",
+                        name: "style",
+                        options: ["simple", "buttons"],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
       {
         name: "post",
         label: "Posts",
